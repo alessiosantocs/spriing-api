@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Association type: <i><%= @association_type.name %></i></h1>
+
+
+
+<b>Associated ingredients:</b><br>
+<% @association_type.ingredients.each do |ingredient| %>
+  <%= link_to ingredient.name, ingredient_url(ingredient) %><br>
+<% end %>
+
+<%= link_to 'Edit', edit_association_type_path(@association_type) %> |
+<%= link_to 'Back', association_types_path %>

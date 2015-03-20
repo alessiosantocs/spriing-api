@@ -1,0 +1,64 @@
+
+<h1><%= @association_type.name %></h1>
+
+<% nextup = "../salads/new" %>
+<% nextup = "veggie" if params[:id] == "base" %>
+<% nextup = "fruit" if params[:id] == "veggie" %>
+<% nextup = "protein" if params[:id] == "fruit" %>
+<% nextup = "topping" if params[:id] == "protein" %>
+<% nextup = "herb" if params[:id] == "topping" %>
+
+<form id="ingredients_picker" action="<%= builder_url(nextup) %>" method="get">
+
+  <% flash[:previous_ingredients].each do |ingredient| %>
+    <input type="hidden" name="previous_ingredients[]" value="<%= ingredient %>">
+  <% end %>
+
+  <div>
+    <b>Suggested</b><br>
+    <% if @suggested_ingredients.empty? %>
+      <div>
+        You should skip this
+      </div>
+    <% end %>
+    <% @suggested_ingredients.each do |ingredient| %>
+      <div>
+        <label><input type="checkbox" name="chosen_ingredients[]" value="<%= ingredient.id %>:<%= @association_type.id %>"><%= ingredient.name %></label>
+      </div>
+    <% end %>
+  </div>
+
+  <% if @conventional_ingredients != @suggested_ingredients %>
+
+    <b>All <%= @association_type.name %> ingredients</b><br>
+    <% @conventional_ingredients.each do |ingredient| %>
+      <div>
+        <label><input type="checkbox" name="chosen_ingredients[]" value="<%= ingredient.id %>:<%= @association_type.id %>"><%= ingredient.name %></label>
+      </div>
+    <% end %>
+
+  <% end %>
+
+<br>
+<button name="button">
+  Continue to <%= nextup.pluralize %>
+</button>
+
+</form>
+
+<br>
+<br>
+
+
+<br>
+Salad status: <%= @previous_ingredients.map(&:name) %>
+
+
+<hr>
+
+<b>Salads already built with those ingredients</b>
+<% Salad.with_ingredients(@previous_ingredients).each do |salad| %>
+  <div>
+    <%= link_to salad.name, salad_url(salad), target: :blank %> : <%= salad.ingredients.map(&:name).join(", ") %>
+  </div>
+<% end %>

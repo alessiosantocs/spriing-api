@@ -1,9 +1,19 @@
 SaladBuilder::Application.routes.draw do
+  resources :association_types
+
+  resources :salads
+
+  resources :ingredients
+
+  get "/build" => "salad_builder#index"
+  get "/build/:id" => "salad_builder#show", as: :builder
+  get "/build/save" => "salads#new"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root "salads#index"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

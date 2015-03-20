@@ -1,0 +1,21 @@
+<%= form_for(@association_type) do |f| %>
+  <% if @association_type.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@association_type.errors.count, "error") %> prohibited this association_type from being saved:</h2>
+
+      <ul>
+      <% @association_type.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

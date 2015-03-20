@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Salad: <i><%= @salad.name %></i></h1>
+
+<% @salad.ingredients.each do |ingredient| %>
+  <%= link_to ingredient.name, ingredient_url(ingredient) %> : <%= ingredient.ingredients_association(@salad).association_type.name %> <br>
+<% end %>
+
+<%= link_to 'Edit', edit_salad_path(@salad) %> |
+<%= link_to 'Back', salads_path %>

@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @ingredient.name %>
+</p>
+
+<b>Salads used in:</b><br>
+<% @ingredient.salads_used_in.each do |salad| %>
+  <%= link_to salad.name, salad_url(salad) %><br>
+<% end %>
+
+<%= link_to 'Edit', edit_ingredient_path(@ingredient) %> |
+<%= link_to 'Back', ingredients_path %>

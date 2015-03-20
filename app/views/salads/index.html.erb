@@ -1,0 +1,27 @@
+<h1>Listing salads</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @salads.each do |salad| %>
+      <tr>
+        <td><%= salad.name %></td>
+        <td><%= link_to 'Show', salad %></td>
+        <td><%= link_to 'Edit', edit_salad_path(salad) %></td>
+        <td><%= link_to 'Destroy', salad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Salad', new_salad_path %>
