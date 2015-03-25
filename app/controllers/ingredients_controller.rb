@@ -5,6 +5,8 @@ class IngredientsController < ApplicationController
   # GET /ingredients.json
   def index
     @ingredients = Ingredient.all
+    @ingredients = @ingredients.with_association_type(params[:association_type_id]) if params[:association_type_id]
+
   end
 
   # GET /ingredients/1

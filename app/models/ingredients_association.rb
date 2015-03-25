@@ -5,7 +5,7 @@ class IngredientsAssociation < ActiveRecord::Base
   belongs_to :association_type
 
   scope :with_association_type, lambda{|association_type|
-    where(:association_type_id => association_type.try(:id) || association_type)
+    where(:association_type_id => association_type.try(:id) || AssociationType.find_by_name(association_type).try(:id) || association_type)
   }
 
   scope :with_salads, lambda{|salads|

@@ -1,5 +1,7 @@
 SaladBuilder::Application.routes.draw do
-  resources :association_types
+  resources :association_types do
+    resources :ingredients
+  end
 
   resources :salads
 
