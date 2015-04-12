@@ -6,6 +6,12 @@ class Salad < ActiveRecord::Base
   has_many :ingredients_associations, dependent: :destroy
   has_many :ingredients, through: :ingredients_associations
 
+  # A user can favorite a salad to save it
+  has_many :favorites
+
+  belongs_to :user # Through user_id. This is optional
+
+
   scope :with_ingredients, lambda { |ingredients_array|
     includes(:ingredients_associations).where("ingredients_associations.ingredient_id IN (?)", ingredients_array.try(:map, &:id) || ingredients_array)
   }
@@ -19,6 +25,7 @@ class Salad < ActiveRecord::Base
     array = names.split(",")
 
     # if you are editing an exsisting salad you must recreate everything
+    Rails.logger.info self.id
     if self.id?
       self.ingredients_associations.delete_all
     end
@@ -43,6 +50,8 @@ class Salad < ActiveRecord::Base
       ingredients_association.salad = self
       # Assign the association type
       ingredients_association.association_type = association_type
+
+      ingredients_association.save
     end
 
     self._ingredient_names = names

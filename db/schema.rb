@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309142917) do
+ActiveRecord::Schema.define(version: 20150328104121) do
 
   create_table "association_types", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "favorites", force: true do |t|
+    t.integer  "salad_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -35,6 +42,13 @@ ActiveRecord::Schema.define(version: 20150309142917) do
 
   create_table "salads", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "device_uuid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

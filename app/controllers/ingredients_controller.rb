@@ -5,8 +5,11 @@ class IngredientsController < ApplicationController
   # GET /ingredients.json
   def index
     @ingredients = Ingredient.all
-    @ingredients = @ingredients.with_association_type(params[:association_type_id]) if params[:association_type_id]
 
+    if params[:association_type_id]
+      @ingredients = @ingredients.with_association_type(params[:association_type_id])
+      @association_type = AssociationType.find_by_id(params[:association_type_id]) || AssociationType.find_by_name(params[:association_type_id])
+    end
   end
 
   # GET /ingredients/1

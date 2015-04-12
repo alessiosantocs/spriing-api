@@ -31,4 +31,8 @@ class Ingredient < ActiveRecord::Base
   def ingredients_association(salad)
     IngredientsAssociation.find_by(salad_id: salad.id, ingredient_id: self.id)
   end
+
+  def association_type(salad)
+    self.ingredients_association(salad).association_type
+  end
 end
